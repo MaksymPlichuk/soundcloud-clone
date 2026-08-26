@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Soundcloud_Clone.API", "Soundcloud_Clone.API\Soundcloud_Clone.API.csproj", "{24723689-8CE7-4585-83D2-755DAF2C7E58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Soundcloud_Clone.BLL", "Soundcloud_Clone.BLL\Soundcloud_Clone.BLL.csproj", "{11C74387-78C9-460C-9B14-E3CB4ECB515B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Soundcloud_Clone.DAL", "Soundcloud_Clone.DAL\Soundcloud_Clone.DAL.csproj", "{A851B74C-AEC6-428F-8099-BBB68BE1F92F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24723689-8CE7-4585-83D2-755DAF2C7E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24723689-8CE7-4585-83D2-755DAF2C7E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24723689-8CE7-4585-83D2-755DAF2C7E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24723689-8CE7-4585-83D2-755DAF2C7E58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C74387-78C9-460C-9B14-E3CB4ECB515B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C74387-78C9-460C-9B14-E3CB4ECB515B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C74387-78C9-460C-9B14-E3CB4ECB515B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C74387-78C9-460C-9B14-E3CB4ECB515B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A851B74C-AEC6-428F-8099-BBB68BE1F92F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A851B74C-AEC6-428F-8099-BBB68BE1F92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A851B74C-AEC6-428F-8099-BBB68BE1F92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A851B74C-AEC6-428F-8099-BBB68BE1F92F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50B66185-5AF6-4E4A-87F7-ABD05D801F53}
+	EndGlobalSection
+EndGlobal
