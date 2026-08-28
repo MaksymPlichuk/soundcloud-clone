@@ -12,6 +12,6 @@ public class SongEntity : BaseEntity
     public int ArtistId { get; set; }
     public UserEntity Artist { get; set; }
 
-    public List<PlaylistEntity> Playlists { get; set; } = [];
+    public List<AlbumEntity> Albums { get; set; } = [];
     public List<CommentEntity> Comments { get; set; } = [];
 }
