@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Soundcloud_Clone.DAL\Soundcloud_Clone.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+  </ItemGroup>
+
 </Project>
