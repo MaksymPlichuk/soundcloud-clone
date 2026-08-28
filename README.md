@@ -24,7 +24,7 @@
 - Backend: класична 3-layer (Presentation > BLL > DAL)
 - Git-flow: `main` + `develop` + `feature/*`  — деталі в [WORKFLOW.md](./WORKFLOW.md)
 
-## —труктура проЇкту
+## Структура проекту
 
 ```
 /Backend
