@@ -2,7 +2,7 @@
 
 namespace Soundcloud_Clone.DAL.Enitites.Identity
 {
-    public class AppRoleClaim : IdentityRoleClaim<string>
+    public class AppRoleClaim : IdentityRoleClaim<int>
     {
         public virtual AppRole Role { get; set; }
     }

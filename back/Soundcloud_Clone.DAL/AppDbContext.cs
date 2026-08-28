@@ -5,7 +5,7 @@ using Soundcloud_Clone.DAL.Enitites.Identity;
 
 namespace Soundcloud_Clone.DAL;
 
-public class AppDbContext : IdentityDbContext<UserEntity, AppRole, string,
+public class AppDbContext : IdentityDbContext<UserEntity, AppRole, int,
         AppUserClaim, AppUserRole, AppUserLogin,
         AppRoleClaim, AppUserToken>
 {
@@ -16,8 +16,8 @@ public class AppDbContext : IdentityDbContext<UserEntity, AppRole, string,
     
     public DbSet<UserEntity> Users { get; set; }
     public DbSet<CommentEntity> Comments { get; set; }
-    public DbSet<AlbumEntity> Playlist { get; set; }
-    public DbSet<SongEntity> Musics { get; set; }
+    public DbSet<AlbumEntity> Albums { get; set; }
+    public DbSet<SongEntity> Songs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,6 +38,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, AppRole, string,
             e.Property(e => e.Length).HasDefaultValue(0);
             
             e.HasMany(e=>e.Albums).WithMany(p=>p.Songs).UsingEntity("SongAlbums");
+            e.HasOne(e => e.Artist).WithMany(a => a.Songs).HasForeignKey(s => s.ArtistId);
         });
         modelBuilder.Entity<AlbumEntity>(e =>
         {

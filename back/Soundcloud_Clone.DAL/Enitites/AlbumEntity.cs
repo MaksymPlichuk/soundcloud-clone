@@ -9,5 +9,5 @@ public class AlbumEntity : BaseEntity
 
     public int AuthorId { get; set; }
     public UserEntity Author { get; set; }
-    public List<SongEntity> Songs { get; set; }
+    public List<SongEntity> Songs { get; set; } = [];
 }
