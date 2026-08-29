@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
+    <PackageReference Include="Riok.Mapperly" Version="5.0.0-next.10" />
   </ItemGroup>
 
 </Project>
