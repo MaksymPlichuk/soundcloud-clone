@@ -24,7 +24,7 @@
 - Backend: класична 3-layer (Presentation > BLL > DAL)
 - Git-flow: `main` + `develop` + `feature/*`  — деталі в [WORKFLOW.md](./WORKFLOW.md)
 
-## Структура проекту
+## Структура проєкту
 
 ```
 /Backend
@@ -82,6 +82,6 @@ VITE_API_URL=http://localhost:5087
 ## Основні сутності
 
 - **User** (Artist / Listener)
-- **Music** (треки)
-- **Playlist**
+- **Songs** (треки)
+- **Albums** (плейлісти)
 - **Comment**

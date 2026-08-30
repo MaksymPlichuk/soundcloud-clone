@@ -1,13 +1,42 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Soundcloud_Clone.DAL;
+using Soundcloud_Clone.DAL.Enitites.Identity;
+using Soundcloud_Clone.DAL.Initializer;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddIdentity<UserEntity, AppRole>(opt =>
+{
+    opt.User.RequireUniqueEmail = false;
+    opt.Password.RequiredUniqueChars = 1;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireLowercase = false;
+    opt.Password.RequireUppercase = false;
+    opt.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<AppDbContext>()
+  .AddDefaultTokenProviders();
+
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    string? connectionString = builder.Configuration.GetConnectionString("LocalDB");
+    opt.UseNpgsql(connectionString);
+});
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<Soundcloud_Clone.API.Repositories.ISongRepository, Soundcloud_Clone.API.Repositories.InMemorySongRepository>();
 builder.Services.AddScoped<Soundcloud_Clone.API.Services.ISongService, Soundcloud_Clone.API.Services.SongService>();
 
-var app = builder.Build();
+var app = builder.Build();  
 
 if (app.Environment.IsDevelopment())
 {
@@ -21,4 +50,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await app.SeedAsync();
 app.Run();
