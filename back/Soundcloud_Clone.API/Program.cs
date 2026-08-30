@@ -6,8 +6,6 @@ using Soundcloud_Clone.DAL.Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddSwaggerGen();
@@ -33,11 +31,13 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<Soundcloud_Clone.API.Repositories.ISongRepository, Soundcloud_Clone.API.Repositories.InMemorySongRepository>();
+builder.Services.AddScoped<Soundcloud_Clone.API.Services.ISongService, Soundcloud_Clone.API.Services.SongService>();
 
 var app = builder.Build();  
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
