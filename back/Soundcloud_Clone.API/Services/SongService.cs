@@ -1,22 +1,27 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Soundcloud_Clone.API.Models;
-using Soundcloud_Clone.API.Repositories;
+using Soundcloud_Clone.DAL.Repositories;
+using Soundcloud_Clone.BLL.Dtos.Song;
+using Soundcloud_Clone.BLL.Mapperly;
+using Soundcloud_Clone.DAL.Enitites;
 
 namespace Soundcloud_Clone.API.Services
 {
     public class SongService : ISongService
     {
         private readonly ISongRepository _repository;
+        private readonly MapperProfile _mapper = new();
 
         public SongService(ISongRepository repository)
         {
             _repository = repository;
         }
 
-        public Task<Song> CreateAsync(Song song)
+        public async Task<SongDto> CreateAsync(CreateSongDto dto)
         {
-            return _repository.CreateAsync(song);
+            var entity = _mapper.CreateSongToEntity(dto);
+            var created = await _repository.CreateAsync(entity);
+            return _mapper.SongToDto(created);
         }
 
         public Task<bool> DeleteAsync(int id)
@@ -24,22 +29,26 @@ namespace Soundcloud_Clone.API.Services
             return _repository.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<Song>> GetAllAsync()
+        public async Task<IEnumerable<SongDto>> GetAllAsync()
         {
-            return _repository.GetAllAsync();
+            var entities = await _repository.GetAllAsync();
+            return _mapper.ListSongsToDto(entities.ToList());
         }
 
-        public Task<Song?> GetByIdAsync(int id)
+        public async Task<SongDto?> GetByIdAsync(int id)
         {
-            return _repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity is null) return null;
+            return _mapper.SongToDto(entity);
         }
 
-        public async Task<bool> UpdateAsync(int id, Song song)
+        public async Task<bool> UpdateAsync(int id, UpdateSongDto dto)
         {
             var existing = await _repository.GetByIdAsync(id);
             if (existing is null) return false;
-            song.Id = id;
-            return await _repository.UpdateAsync(song);
+            _mapper.UpdateSong(dto, existing);
+            existing.Id = id;
+            return await _repository.UpdateAsync(existing);
         }
     }
 }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Soundcloud_Clone.API.Models;
+using Soundcloud_Clone.BLL.Dtos.Song;
 using Soundcloud_Clone.API.Services;
 using Soundcloud_Clone.BLL.Dtos.Song;
 

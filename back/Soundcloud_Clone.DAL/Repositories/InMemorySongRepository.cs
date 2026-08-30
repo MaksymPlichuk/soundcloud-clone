@@ -2,16 +2,16 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Soundcloud_Clone.API.Models;
+using Soundcloud_Clone.DAL.Enitites;
 
-namespace Soundcloud_Clone.API.Repositories
+namespace Soundcloud_Clone.DAL.Repositories
 {
     public class InMemorySongRepository : ISongRepository
     {
-        private readonly ConcurrentDictionary<int, Song> _store = new();
+        private readonly ConcurrentDictionary<int, SongEntity> _store = new();
         private int _nextId = 1;
 
-        public Task<Song> CreateAsync(Song song)
+        public Task<SongEntity> CreateAsync(SongEntity song)
         {
             var id = System.Threading.Interlocked.Increment(ref _nextId);
             song.Id = id;
@@ -24,18 +24,18 @@ namespace Soundcloud_Clone.API.Repositories
             return Task.FromResult(_store.TryRemove(id, out _));
         }
 
-        public Task<IEnumerable<Song>> GetAllAsync()
+        public Task<IEnumerable<SongEntity>> GetAllAsync()
         {
             return Task.FromResult(_store.Values.AsEnumerable());
         }
 
-        public Task<Song?> GetByIdAsync(int id)
+        public Task<SongEntity?> GetByIdAsync(int id)
         {
             _store.TryGetValue(id, out var song);
             return Task.FromResult(song);
         }
 
-        public Task<bool> UpdateAsync(Song song)
+        public Task<bool> UpdateAsync(SongEntity song)
         {
             if (!_store.ContainsKey(song.Id))
                 return Task.FromResult(false);

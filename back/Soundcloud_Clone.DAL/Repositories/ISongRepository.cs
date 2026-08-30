@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Soundcloud_Clone.API.Models;
+using Soundcloud_Clone.DAL.Enitites;
 
-namespace Soundcloud_Clone.API.Repositories
+namespace Soundcloud_Clone.DAL.Repositories
 {
     public interface ISongRepository
     {
-        Task<IEnumerable<Song>> GetAllAsync();
-        Task<Song?> GetByIdAsync(int id);
-        Task<Song> CreateAsync(Song song);
-        Task<bool> UpdateAsync(Song song);
+        Task<IEnumerable<SongEntity>> GetAllAsync();
+        Task<SongEntity?> GetByIdAsync(int id);
+        Task<SongEntity> CreateAsync(SongEntity song);
+        Task<bool> UpdateAsync(SongEntity song);
         Task<bool> DeleteAsync(int id);
     }
 }
