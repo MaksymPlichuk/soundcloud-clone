@@ -1,22 +1,29 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Soundcloud_Clone.API.Models;
 using Soundcloud_Clone.API.Repositories;
+using Soundcloud_Clone.BLL.Dtos.Song;
+using Soundcloud_Clone.BLL.Mapperly;
+using Soundcloud_Clone.DAL.Enitites;
+using Soundcloud_Clone.DAL.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Soundcloud_Clone.API.Services
 {
-    public class SongService : ISongService
+    public class SongService
     {
-        private readonly ISongRepository _repository;
-
-        public SongService(ISongRepository repository)
+        private readonly MapperProfile _mapper;
+        private readonly SongRepository _repository;
+        public SongService(SongRepository repository, MapperProfile mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public Task<Song> CreateAsync(Song song)
+        public async Task<bool> CreateAsync(CreateSongDto song)
         {
-            return _repository.CreateAsync(song);
+            SongEntity songEntity = _mapper.CreateSongToEntity(song);
+            
+            return  await _repository.CreateAsync(songEntity);
         }
 
         public Task<bool> DeleteAsync(int id)
