@@ -6,10 +6,10 @@ namespace Soundcloud_Clone.BLL.Services
 {
     public interface ISongService
     {
-        Task<IEnumerable<SongDto>> GetAllAsync();
-        Task<SongDto?> GetByIdAsync(int id);
-        Task<SongDto> CreateAsync(CreateSongDto dto);
-        Task<bool> UpdateAsync(int id, UpdateSongDto dto);
-        Task<bool> DeleteAsync(int id);
+        Task<ServiceResponse> GetAllAsync();
+        Task<ServiceResponse> GetByIdAsync(int id);
+        Task<ServiceResponse> CreateAsync(CreateSongDto dto);
+        Task<ServiceResponse> UpdateAsync(UpdateSongDto dto);
+        Task<ServiceResponse> DeleteAsync(int id);
     }
 }

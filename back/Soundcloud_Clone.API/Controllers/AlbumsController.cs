@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Soundcloud_Clone.API.Models;
+using Soundcloud_Clone.API.Extensions;
 using Soundcloud_Clone.API.Services;
+using Soundcloud_Clone.BLL.Dtos.Album;
+using Soundcloud_Clone.BLL.Dtos.Song;
 
 namespace Soundcloud_Clone.API.Controllers;
 
@@ -15,63 +17,38 @@ public class AlbumsController : ControllerBase
         _service = service;
     }
 
-    // GET: api/albums
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var albums = await _service.GetAllAsync();
-
-        return Ok(albums);
+        var resp = await _service.GetAllAsync();
+        return this.GetAction(resp);
     }
 
-    // GET: api/albums/1
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id)
+    [HttpGet("by-id/{id}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var album = await _service.GetByIdAsync(id);
-
-        if (album is null)
-            return NotFound();
-
-        return Ok(album);
+        var resp = await _service.GetByIdAsync(id);
+        return this.GetAction(resp);
     }
 
-    // POST: api/albums
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Album album)
+    public async Task<IActionResult> Create([FromForm] CreateAlbumDto song)
     {
-        var created = await _service.CreateAsync(album);
-
-        return CreatedAtAction(
-            nameof(GetById),
-            new { id = created.Id },
-            created
-        );
+        var resp = await _service.CreateAsync(song);
+        return this.GetAction(resp);
     }
 
-    // PUT: api/albums/1
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(
-        int id,
-        [FromBody] Album album)
+    [HttpPut]
+    public async Task<IActionResult> Update([FromForm] UpdateAlbumDto song)
     {
-        var updated = await _service.UpdateAsync(id, album);
-
-        if (!updated)
-            return NotFound();
-
-        return NoContent();
+        var resp = await _service.UpdateAsync(song);
+        return this.GetAction(resp);
     }
 
-    // DELETE: api/albums/1
-    [HttpDelete("{id:int}")]
+    [HttpDelete]
     public async Task<IActionResult> Delete(int id)
     {
-        var deleted = await _service.DeleteAsync(id);
-
-        if (!deleted)
-            return NotFound();
-
-        return NoContent();
+        var resp = await _service.DeleteAsync(id);
+        return this.GetAction(resp);
     }
 }
