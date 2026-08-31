@@ -20,11 +20,11 @@ namespace Soundcloud_Clone.DAL.Repositories
             return (await _context.SaveChangesAsync() != 0);
         }
 
-        public IQueryable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
             return _context.Set<TEntity>().AsNoTracking();
         }
-        public async Task<TEntity?> GetByIdAsync(int id)
+        public virtual async Task<TEntity?> GetByIdAsync(int id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
