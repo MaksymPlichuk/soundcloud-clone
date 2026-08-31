@@ -1,22 +1,62 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Soundcloud_Clone.API.Infrastracture;
+using Soundcloud_Clone.API.Repositories;
+using Soundcloud_Clone.API.Services;
+using Soundcloud_Clone.BLL.Mapperly;
+using Soundcloud_Clone.BLL.Services;
+using Soundcloud_Clone.DAL;
+using Soundcloud_Clone.DAL.Enitites.Identity;
+using Soundcloud_Clone.DAL.Initializer;
+using Soundcloud_Clone.DAL.Repositories;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddSwagerGen();
+builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddIdentity<UserEntity, AppRole>(opt =>
+{
+    opt.User.RequireUniqueEmail = false;
+    opt.Password.RequiredUniqueChars = 1;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireLowercase = false;
+    opt.Password.RequireUppercase = false;
+    opt.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<AppDbContext>()
+  .AddDefaultTokenProviders();
+
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    string? connectionString = builder.Configuration.GetConnectionString("LocalDB");
+    opt.UseNpgsql(connectionString);
+});
+
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddScoped<ISongService, SongService>();
+builder.Services.AddScoped<IAlbumService, AlbumService>();
 
-// Configure the HTTP request pipeline.
+builder.Services.AddScoped<AlbumRepository>();
+builder.Services.AddScoped<SongRepository>();
+
+builder.Services.AddSingleton<MapperProfile>();
+
+
+var app = builder.Build();  
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
+app.UseStaticMedia(builder.Environment);
 
 app.UseHttpsRedirection();
 
@@ -24,4 +64,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await app.SeedAsync();
 app.Run();

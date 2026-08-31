@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
+namespace Soundcloud_Clone.BLL.Dtos.Album
+{
+    public class UpdateAlbumDto
+    {
+        [Required]
+        public int Id { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        [Required]
+        public int AuthorId { get; set; }
+        //public List<int> SongIds { get; set; } = []; переробити
+    }
+}

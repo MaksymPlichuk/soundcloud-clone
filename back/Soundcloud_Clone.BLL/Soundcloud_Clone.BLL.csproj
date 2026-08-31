@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Soundcloud_Clone.DAL\Soundcloud_Clone.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Riok.Mapperly" Version="5.0.0-next.10" />
+  </ItemGroup>
+
 </Project>
