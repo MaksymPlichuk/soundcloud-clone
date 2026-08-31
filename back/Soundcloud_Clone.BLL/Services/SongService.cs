@@ -1,11 +1,12 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Soundcloud_Clone.DAL.Repositories;
 using Soundcloud_Clone.BLL.Dtos.Song;
 using Soundcloud_Clone.BLL.Mapperly;
 using Soundcloud_Clone.DAL.Enitites;
+using Soundcloud_Clone.DAL.Repositories;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Soundcloud_Clone.API.Services
+namespace Soundcloud_Clone.BLL.Services
 {
     public class SongService : ISongService
     {

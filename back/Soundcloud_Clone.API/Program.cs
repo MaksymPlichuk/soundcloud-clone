@@ -35,7 +35,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<Soundcloud_Clone.API.Repositories.ISongRepository, Soundcloud_Clone.API.Repositories.InMemorySongRepository>();
+builder.Services.AddSingleton<Soundcloud_Clone.DAL.Repositories.ISongRepository, Soundcloud_Clone.DAL.Repositories.InMemorySongRepository>();
 builder.Services.AddScoped<Soundcloud_Clone.API.Services.ISongService, Soundcloud_Clone.API.Services.SongService>();
 
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Soundcloud_Clone.BLL.Dtos.Song;
 
-namespace Soundcloud_Clone.API.Services
+namespace Soundcloud_Clone.BLL.Services
 {
     public interface ISongService
     {

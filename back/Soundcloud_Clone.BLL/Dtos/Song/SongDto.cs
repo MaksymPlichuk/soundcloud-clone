@@ -11,6 +11,7 @@ namespace Soundcloud_Clone.BLL.Dtos.Song
 {
     public class SongDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public double Length { get; set; }
 
