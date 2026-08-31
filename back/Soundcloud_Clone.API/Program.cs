@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Soundcloud_Clone.API.Infrastracture;
 using Soundcloud_Clone.API.Repositories;
 using Soundcloud_Clone.API.Services;
 using Soundcloud_Clone.BLL.Mapperly;
@@ -53,7 +54,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
+app.UseStaticMedia(builder.Environment);
 
 app.UseHttpsRedirection();
 
