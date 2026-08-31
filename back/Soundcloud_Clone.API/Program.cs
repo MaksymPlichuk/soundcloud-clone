@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Soundcloud_Clone.DAL;
 using Soundcloud_Clone.DAL.Enitites.Identity;
 using Soundcloud_Clone.DAL.Initializer;
+using Soundcloud_Clone.API.Repositories;
+using Soundcloud_Clone.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<Soundcloud_Clone.API.Repositories.ISongRepository, Soundcloud_Clone.API.Repositories.InMemorySongRepository>();
 builder.Services.AddScoped<Soundcloud_Clone.API.Services.ISongService, Soundcloud_Clone.API.Services.SongService>();
+
+builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
+builder.Services.AddScoped<IAlbumService, AlbumService>();
 
 var app = builder.Build();  
 
