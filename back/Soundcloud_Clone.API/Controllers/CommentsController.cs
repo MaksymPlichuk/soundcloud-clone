@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc;
 using Soundcloud_Clone.BLL.Dtos.Comment;
 using Soundcloud_Clone.BLL.Services;
@@ -53,5 +54,11 @@ namespace Soundcloud_Clone.API.Controllers
             if (!deleted) return NotFound();
             return NoContent();
         }
+=======
+﻿namespace Soundcloud_Clone.API.Controllers
+{
+    public class CommentsController
+    {
+>>>>>>> 8f7b4b93cfde8f89ce84aeaf9af78c42a51fb467
     }
 }
