@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace Soundcloud_Clone.BLL.Dtos.Album
 {
@@ -16,5 +17,6 @@ namespace Soundcloud_Clone.BLL.Dtos.Album
         [Required]
         public int AuthorId { get; set; }
         //public List<int> SongIds { get; set; } = []; переробити
+        public IFormFile? Image { get; set; }
     }
 }

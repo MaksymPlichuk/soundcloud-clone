@@ -10,6 +10,7 @@ using Soundcloud_Clone.DAL.Enitites.Identity;
 using Soundcloud_Clone.DAL.Initializer;
 using Soundcloud_Clone.DAL.Repositories;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -46,6 +47,8 @@ builder.Services.AddScoped<AlbumRepository>();
 builder.Services.AddScoped<SongRepository>();
 
 builder.Services.AddSingleton<MapperProfile>();
+
+builder.Services.AddScoped<IImageService, ImageService>();
 
 
 var app = builder.Build();  
