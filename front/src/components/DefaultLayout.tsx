@@ -1,6 +1,7 @@
 import {Outlet} from "react-router";
 import Navbar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
+import Player from "./Player.tsx";
 
 const DefaultLayout = () => {
     return (
@@ -10,9 +11,7 @@ const DefaultLayout = () => {
                 <Outlet></Outlet>
             </div>
             <Footer/>
-            <audio className={"fixed bottom-0 w-full justify-center z-50 px-4"} controls>
-                <source src={"https://localhost:7293/songs/Dr%20Dre,%20Snoop%20Dogg%20%E2%80%93%20Still%20DRE.mp3"} type={"audio/mpeg"}></source>
-            </audio>
+            <Player />
         </>
     );
 }

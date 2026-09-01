@@ -1,6 +1,7 @@
 import {useCreateSongMutation, useGetSongsQuery} from "../services/songsApi.ts";
 import {useEffect} from "react";
 import type {ICreateSongItem} from "../types/Song/ICreateSongItem.ts";
+import {Link} from "react-router";
 
 const MainPage = () => {
 
@@ -56,7 +57,10 @@ const MainPage = () => {
                     </div>
                 </div>
                 <div className="px-6 pt-4 pb-2 bg-amber-300" onClick={testCreate}></div>
-                <div className={"bg-emerald-300 h-full"}>f</div>
+                <Link to={"/items"}>
+
+                <div className={"bg-emerald-500 h-full"}>f</div>
+                </Link>
                 <div className={"bg-emerald-300 h-full"}>f</div>
             </div>
                 <div className={"bg-emerald-300 h-full"}>f</div>

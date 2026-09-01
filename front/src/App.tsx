@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<DefaultLayout/>}>
           <Route index element={<MainPage/>}/>
-
+            <Route path={"/items"} element={<ErrorPage/>}></Route>
             <Route path={"*"} element={<ErrorPage/>}></Route>
         </Route>
       </Routes>
