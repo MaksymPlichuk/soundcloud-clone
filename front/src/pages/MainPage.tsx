@@ -1,4 +1,37 @@
+import {useCreateSongMutation, useGetSongsQuery} from "../services/songsApi.ts";
+import {useEffect} from "react";
+import type {ICreateSongItem} from "../types/Song/ICreateSongItem.ts";
+
 const MainPage = () => {
+
+    const {data: songs, isLoading, isError} = useGetSongsQuery();
+    const [createSong] = useCreateSongMutation();
+
+    useEffect(() => {
+        if (songs) {
+            console.log(songs);}
+    }, [songs])
+
+    const testCreate = async () => {
+        const data:ICreateSongItem = {
+            name: "test",
+            length: 0,
+            image: "test",
+            artistId: 8,
+            albumIds: [],
+            commentIds: [],
+        }
+        try {
+            console.log(data)
+            let resp = await createSong(data).unwrap();
+            console.log(resp);
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+    }
+
     return (
         <>
             <div className="flex justify-center mt-5 flex-col">
@@ -22,7 +55,7 @@ const MainPage = () => {
                             className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
                     </div>
                 </div>
-
+                <div className="px-6 pt-4 pb-2 bg-amber-300" onClick={testCreate}></div>
                 <div className={"bg-emerald-300 h-full"}>f</div>
                 <div className={"bg-emerald-300 h-full"}>f</div>
             </div>

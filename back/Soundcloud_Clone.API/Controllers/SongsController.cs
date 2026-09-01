@@ -32,7 +32,7 @@ namespace Soundcloud_Clone.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateSongDto song)
+        public async Task<IActionResult> Create([FromBody] CreateSongDto song)
         {
             var resp = await _service.CreateAsync(song);
             return this.GetAction(resp);
