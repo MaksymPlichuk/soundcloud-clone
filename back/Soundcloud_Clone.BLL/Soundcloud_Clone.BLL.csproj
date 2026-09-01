@@ -13,5 +13,9 @@
   <ItemGroup>
     <PackageReference Include="Riok.Mapperly" Version="5.0.0-next.10" />
   </ItemGroup>
+	
+  <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
 </Project>
