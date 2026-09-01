@@ -50,7 +50,10 @@ public class SongService : ISongService
         {
             return ServiceResponse.Failure(ex.Message);
         }
-        return ServiceResponse.Success($"Song {entity.Name} created!", _mapper.SongToDto(entity));
+
+        var fullEntity = await _repository.GetByIdAsync(entity.Id); //коли приходить з фронту підвантажує author інкаше помилка
+
+        return ServiceResponse.Success($"Song {entity.Name} created!", _mapper.SongToDto(fullEntity));
     }
 
     public async Task<ServiceResponse> UpdateAsync(UpdateSongDto dto)

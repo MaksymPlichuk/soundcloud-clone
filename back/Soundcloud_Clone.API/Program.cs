@@ -37,6 +37,16 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 
 
+string CORSPolicy = "AllowAll";
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(CORSPolicy, cfg =>
+    {
+        cfg.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -51,7 +61,9 @@ builder.Services.AddSingleton<MapperProfile>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
 
-var app = builder.Build();  
+var app = builder.Build();
+
+app.UseCors(CORSPolicy);
 
 if (app.Environment.IsDevelopment())
 {
