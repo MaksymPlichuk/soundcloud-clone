@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using Soundcloud_Clone.BLL.Dtos.Comment;
 using Soundcloud_Clone.BLL.Mapperly;
 using Soundcloud_Clone.DAL.Enitites;
@@ -12,13 +11,12 @@ namespace Soundcloud_Clone.BLL.Services
 {
     public class CommentService : ICommentService
     {
-        private readonly ISongRepository _songRepository;
+
         private readonly GenericRepository<CommentEntity> _commentRepository;
         private readonly MapperProfile _mapper = new();
 
-        public CommentService(ISongRepository songRepository, GenericRepository<CommentEntity> commentRepository)
+        public CommentService(GenericRepository<CommentEntity> commentRepository)
         {
-            _songRepository = songRepository;
             _commentRepository = commentRepository;
         }
 
@@ -55,15 +53,5 @@ namespace Soundcloud_Clone.BLL.Services
             existing.Id = id;
             return await _commentRepository.UpdateAsync(existing);
         }
-=======
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Soundcloud_Clone.BLL.Services
-{
-    internal class CommentService
-    {
->>>>>>> 8f7b4b93cfde8f89ce84aeaf9af78c42a51fb467
     }
 }
