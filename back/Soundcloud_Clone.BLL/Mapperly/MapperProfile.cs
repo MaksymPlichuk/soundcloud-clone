@@ -35,9 +35,11 @@ namespace Soundcloud_Clone.BLL.Mapperly
         public partial List<AlbumDto> ListAlbumsToDto(List<AlbumEntity> entities);
         public partial AlbumEntity AlbumDtoToEntity(AlbumDto dto);
         [MapperIgnoreTarget(nameof(AlbumEntity.Image))]
+        [MapperIgnoreTarget(nameof(AlbumEntity.Songs))]
         public partial AlbumEntity CreateAlbumToEntity(CreateAlbumDto dto);
         [MapperIgnoreTarget(nameof(AlbumEntity.Image))]
-        public partial void UpdateAlbum(UpdateAlbumDto dto, [MappingTarget] AlbumEntity entity);
+        [MapperIgnoreTarget(nameof(AlbumEntity.Songs))]
+        public partial void UpdateAlbum(UpdateAlbumDto dto,[MappingTarget] AlbumEntity entity);
 
 
     }

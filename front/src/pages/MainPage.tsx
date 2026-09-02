@@ -1,4 +1,4 @@
-import {useCreateSongMutation, useGetSongsQuery} from "../services/songsApi.ts";
+import {useCreateSongMutation, useGetSongsQuery} from "../api/songsApi.ts";
 import {useEffect} from "react";
 import type {ICreateSongItem} from "../types/Song/ICreateSongItem.ts";
 import {Link} from "react-router";

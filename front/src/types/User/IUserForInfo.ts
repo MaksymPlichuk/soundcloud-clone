@@ -1,5 +1,5 @@
 export interface IUserForInfo {
     id: string;
-    username: string;
+    userName: string;
     image: string;
 }
