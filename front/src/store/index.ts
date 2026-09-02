@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {songsApi} from "../services/songsApi.ts";
+import {songsApi} from "../api/songsApi.ts";
 import {type TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 export const store = configureStore({

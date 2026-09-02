@@ -60,6 +60,8 @@ builder.Services.AddSingleton<MapperProfile>();
 
 builder.Services.AddScoped<IImageService, ImageService>();
 
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 var app = builder.Build();
 
