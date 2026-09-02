@@ -11,11 +11,13 @@ public class AlbumService : IAlbumService
 {
     private readonly AlbumRepository _repository;
     private readonly MapperProfile _mapper;
+    private readonly IImageService _imageService;
 
-    public AlbumService(AlbumRepository repository, MapperProfile mapper)
+    public AlbumService( AlbumRepository repository, MapperProfile mapper, IImageService imageService)
     {
         _repository = repository;
         _mapper = mapper;
+        _imageService = imageService;
     }
 
     public async Task<ServiceResponse> GetAllAsync()
@@ -43,32 +45,70 @@ public class AlbumService : IAlbumService
     public async Task<ServiceResponse> CreateAsync(CreateAlbumDto dto)
     {
         AlbumEntity entity = _mapper.CreateAlbumToEntity(dto);
+
         try
         {
+            if (dto.Image is not null)
+            {
+                entity.Image = await _imageService.SaveAlbumImageAsync(dto.Image);
+            }
+
             await _repository.CreateAsync(entity);
         }
         catch (Exception ex)
         {
             return ServiceResponse.Failure(ex.Message);
         }
-        return ServiceResponse.Success($"Album {entity.Name} created!", _mapper.AlbumToDto(entity));
+
+        return ServiceResponse.Success(
+            $"Album {entity.Name} created!",
+            _mapper.AlbumToDto(entity));
     }
 
     public async Task<ServiceResponse> UpdateAsync(UpdateAlbumDto dto)
     {
         var entity = await GetByIdEntityAsync(dto.Id);
+
         if (entity == null)
         {
-            return ServiceResponse.Failure($"Album with id {dto.Id} not found!");
+            return ServiceResponse.Failure(
+                $"Album with id {dto.Id} not found!");
         }
 
         string oldName = entity.Name;
-        _mapper.UpdateAlbum(dto, entity);
 
-        bool upRes = await _repository.UpdateAsync(entity);
+        try
+        {
+            if (dto.Image is not null)
+            {
+                if (entity.Image.HasValue)
+                {
+                    await _imageService.DeleteAlbumImageAsync(
+                        entity.Image.Value
+                    );
+                }
 
-        if (!upRes) return ServiceResponse.Failure("Update failiure");
-        return ServiceResponse.Success($"Album {oldName} successfully updated!", _mapper.AlbumToDto(entity));
+                entity.Image =
+                    await _imageService.SaveAlbumImageAsync(dto.Image);
+            }
+
+            _mapper.UpdateAlbum(dto, entity);
+
+            bool result = await _repository.UpdateAsync(entity);
+
+            if (!result)
+            {
+                return ServiceResponse.Failure("Update failure");
+            }
+        }
+        catch (Exception ex)
+        {
+            return ServiceResponse.Failure(ex.Message);
+        }
+
+        return ServiceResponse.Success(
+            $"Album {oldName} successfully updated!",
+            _mapper.AlbumToDto(entity));
     }
 
     public async Task<ServiceResponse> DeleteAsync(int id)

@@ -55,6 +55,9 @@ namespace Soundcloud_Clone.DAL.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
+                    b.Property<Guid?>("Image")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -448,7 +451,7 @@ namespace Soundcloud_Clone.DAL.Migrations
             modelBuilder.Entity("Soundcloud_Clone.DAL.Enitites.SongEntity", b =>
                 {
                     b.HasOne("Soundcloud_Clone.DAL.Enitites.Identity.UserEntity", "Artist")
-                        .WithMany()
+                        .WithMany("Songs")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -472,6 +475,8 @@ namespace Soundcloud_Clone.DAL.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Logins");
+
+                    b.Navigation("Songs");
 
                     b.Navigation("Tokens");
 

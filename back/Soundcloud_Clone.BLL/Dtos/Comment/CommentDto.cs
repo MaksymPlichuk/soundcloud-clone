@@ -10,6 +10,7 @@ namespace Soundcloud_Clone.BLL.Dtos.Comment
 {
     public class CommentDto
     {
+        public int Id { get; set; }
         public double? TimeCode { get; set; }
         public string CommentText { get; set; } = string.Empty;
 

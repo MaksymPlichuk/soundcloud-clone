@@ -5,6 +5,7 @@ using Soundcloud_Clone.DAL.Enitites.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace Soundcloud_Clone.BLL.Dtos.Album
 {
@@ -15,5 +16,6 @@ namespace Soundcloud_Clone.BLL.Dtos.Album
         public string? Description { get; set; }
         public UserForInfoDto Author { get; set; }
         public List<SongForInfo> Songs { get; set; } = [];
+        public string? Image { get; set; }
     }
 }
