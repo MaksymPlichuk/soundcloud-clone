@@ -1,9 +1,9 @@
-import type {IUserForInfoItem} from "../Auth/IUserForInfoItem.ts";
+import type {UserForInfo} from "../User/UserForInfo.ts";
 import type {ISongForInfoItem} from "../Song/ISongForInfoItem.ts";
 
 export interface ICommentItem {
     timeCode: number | null;
     commentText: string;
-    author: IUserForInfoItem;
+    author: UserForInfo;
     song: ISongForInfoItem;
 }

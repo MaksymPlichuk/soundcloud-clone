@@ -1,12 +1,12 @@
 import type {ISongItem} from "../Song/ISongItem.ts";
-import type {IUserForInfoItem} from "../Auth/IUserForInfoItem.ts";
+import type {UserForInfo} from "../User/UserForInfo.ts";
 
 export interface IAlbumItem {
     id: number;
     name: string;
     description: string | null;
     authorId: number;
-    author: IUserForInfoItem;
+    author: UserForInfo;
     songs: ISongItem[];
     image: string | null;
 }

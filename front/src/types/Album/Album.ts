@@ -1,4 +1,4 @@
-import type { IUserForInfo } from "../User/IUserForInfo";
+import type { UserForInfo } from "../User/UserForInfo";
 import type { ISongForInfo } from "../Song/ISongForInfo";
 
 export type Album = {
@@ -6,7 +6,7 @@ export type Album = {
     name: string;
     description?: string | null;
     authorId: number;
-    author: IUserForInfo;
+    author: UserForInfo;
     songs: ISongForInfo[];
     image?: string | null;
 };
