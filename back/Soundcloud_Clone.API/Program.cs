@@ -84,6 +84,9 @@ builder.Services.AddSingleton<MapperProfile>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<AuthRepository>();
+builder.Services.AddScoped<TokenService>();
 
 
 var app = builder.Build();

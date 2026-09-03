@@ -3,6 +3,7 @@ import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {isTokenExpired, jwtGetUser} from "./jwt.ts";
 import type {RootState} from "../store";
 import type {UserForInfo} from "../types/User/UserForInfo.ts";
+import type {AuthResponse} from "../types/Auth/AuthResponse.ts";
 
 interface AuthState {
     user: UserForInfo | null;
@@ -23,12 +24,14 @@ const authSlice = createSlice({
     reducers: {
         setCredentials: (
             state,
-            action: PayloadAction<{ user: UserForInfo; token: string }>
+            action: PayloadAction<string>,
         ) => {
-            state.user = action.payload.user;
-            state.token = action.payload.token;
+            state.user = jwtGetUser(action.payload);
+            state.token = action.payload;
             state.isAuthenticated = true;
-            localStorage.setItem("token", action.payload.token);
+            //console.log(action.payload);
+
+            localStorage.setItem("token", action.payload);
         },
         logout: (state) => {
             state.user = null;

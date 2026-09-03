@@ -7,6 +7,7 @@ import AlbumList from "./pages/albumPages/AlbumList.tsx";
 import AlbumCreateForm from "./pages/albumPages/AlbumCreateForm.tsx";
 import AlbumUpdateForm from "./pages/albumPages/AlbumUpdateForm.tsx";
 import AlbumPage from "./pages/albumPages/AlbumPage.tsx";
+import LoginPage from "./pages/auth/LoginPage.tsx";
 
 function App() {
     return (
@@ -20,6 +21,8 @@ function App() {
                     {/*<Route path=":id/edit" element={<AlbumUpdateForm/>}/>*/}
                     <Route path=":id" element={<AlbumPage />}/>
                 </Route>
+                <Route path="/login" element={<LoginPage/>}/>
+                {/*<Route path="/register" element={<RegisterPage/>}/>*/}
 
                 <Route path="*" element={<ErrorPage />}/>
             </Route>
