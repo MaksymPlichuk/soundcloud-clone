@@ -1,5 +1,5 @@
 import MainPage from "./pages/MainPage.tsx";
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "./components/DefaultLayout.tsx";
 import ErrorPage from "./pages/errorPage/ErrorPage.tsx";
 
@@ -17,7 +17,7 @@ function App() {
                 <Route path="/album">
                     <Route index element={<AlbumList/>}/>
                     <Route path="create" element={<AlbumCreateForm/>}/>
-                    <Route path=":id/edit" element={<AlbumUpdateForm/>}/>
+                    {/*<Route path=":id/edit" element={<AlbumUpdateForm/>}/>*/}
                     <Route path=":id" element={<AlbumPage />}/>
                 </Route>
 
