@@ -22,6 +22,7 @@ namespace Soundcloud_Clone.BLL.Mapperly
 
         public partial UserDto UserToDto(UserEntity entity);
         public partial UserForInfoDto UserForInfoToDto(UserEntity entity);
+        public partial UserEntity RegisterDtoToUser(RegisterDto dto);
 
 
         public partial SongDto SongToDto(SongEntity entity);
