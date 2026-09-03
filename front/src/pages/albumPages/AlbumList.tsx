@@ -3,17 +3,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 
-import {
-    useCreateAlbumMutation,
-} from "../../api/albumApi";
+import {useCreateAlbumMutation} from "../../api/albumApi";
 
-import {
-    useGetUsersQuery,
-} from "../../api/userApi";
+import {useGetUsersQuery,} from "../../api/userApi";
 
-import {
-    useGetSongsQuery,
-} from "../../api/songsApi";
+import {useGetSongsQuery,} from "../../api/songsApi";
 
 const albumSchema = z.object({
     name: z

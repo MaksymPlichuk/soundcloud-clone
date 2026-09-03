@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.22.0" />
     <PackageReference Include="Riok.Mapperly" Version="5.0.0-next.10" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
   </ItemGroup>
 	
   <ItemGroup>

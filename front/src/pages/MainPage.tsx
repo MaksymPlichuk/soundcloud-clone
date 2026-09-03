@@ -1,7 +1,7 @@
 import {useCreateSongMutation, useGetSongsQuery} from "../api/songsApi.ts";
 import {useEffect} from "react";
 import type {ICreateSongItem} from "../types/Song/ICreateSongItem.ts";
-import {Link} from "react-router";
+import {Link} from "react-router-dom";
 
 const MainPage = () => {
 
