@@ -55,7 +55,7 @@ const ProgressBar = ({ audioRef }: ProgressBarProps) => {
 
 const Player = () => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const {isPlaying, setCurrentTime, setDuration} = usePlayerStore();
+    const {currentTrack, isPlaying, setCurrentTime, setDuration} = usePlayerStore();
 
     useEffect(() => {
         if (!audioRef.current) return;
@@ -66,15 +66,23 @@ const Player = () => {
         }
     }, [isPlaying]);
 
+    useEffect(() => {
+        if (!audioRef.current) return;
+        audioRef.current.load();
+        if (isPlaying) {
+            audioRef.current.play();
+        }
+    }, [currentTrack]);
+
     return (
         <div className={"fixed bottom-0 w-full justify-center z-50 px-4"}>
-            <audio  ref={audioRef}
-            onTimeUpdate={()=>setCurrentTime(audioRef.current?.currentTime ?? 0)}
-            onLoadedMetadata={()=>setDuration(audioRef.current?.duration ?? 0)}>
-                <source src={`${APP_ENV.API_URL}/songs/Dr%20Dre,%20Snoop%20Dogg%20%E2%80%93%20Still%20DRE.mp3`}
-                        type={"audio/mpeg"}></source>
-            </audio>
-            <div className={"flex flex-row gap-5"}>
+            <audio
+                ref={audioRef}
+                src={`${APP_ENV.API_URL}/songs/${currentTrack}`}
+                onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime ?? 0)}
+                onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
+            />
+            <div className={"flex flex-row gap-5 bg-cyan-500 px-4 rounded-lg"}>
                 <PlayButton/>
                 <ProgressBar audioRef={audioRef} />
             </div>

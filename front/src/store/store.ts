@@ -2,7 +2,7 @@ import {create} from "zustand"
 import type {ISongItem} from "../types/Song/ISongItem.ts";
 
 type PlayerStore = {
-    currentTrack: ISongItem | null;
+    currentTrack: string | "Dr%20Dre,%20Snoop%20Dogg%20%E2%80%93%20Still%20DRE.mp3";
     isPlaying: boolean;
     volume: number;
     isLiked: boolean;
@@ -10,7 +10,7 @@ type PlayerStore = {
     currentTime: number,
     duration: number,
 
-    play: (song: ISongItem | null) => void;
+    play: (song: string | "Dr%20Dre,%20Snoop%20Dogg%20%E2%80%93%20Still%20DRE.mp3") => void;
     pause: () => void;
     togglePlay: () => void;
     //next: () => void; в майбутньому
@@ -22,7 +22,7 @@ type PlayerStore = {
 }
 
 export const usePlayerStore = create<PlayerStore>((set) => ({
-    currentTrack: null,
+    currentTrack: "Dr%20Dre,%20Snoop%20Dogg%20%E2%80%93%20Still%20DRE.mp3",
     isPlaying: false,
     volume: 100,
     isLiked: false,

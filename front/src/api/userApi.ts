@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { createBaseQuery } from "../utils/CreateBaseQuery";
-import type { IUserForInfo } from "../types/User/IUserForInfo";
+import type {UserForInfo} from "../types/User/UserForInfo.ts";
 
 type ServiceResponse<T> = {
     success: boolean;
@@ -16,11 +16,11 @@ export const userApi = createApi({
     tagTypes: ["User"],
 
     endpoints: (builder) => ({
-        getUsers: builder.query<IUserForInfo[], void>({
+        getUsers: builder.query<UserForInfo[], void>({
             query: () => "",
 
             transformResponse: (
-                response: ServiceResponse<IUserForInfo[]>
+                response: ServiceResponse<UserForInfo[]>
             ) => response.data,
 
             providesTags: ["User"],

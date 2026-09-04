@@ -44,7 +44,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center space-x-3">
-                    <Link to="placeholder" className="flex items-center justify-center">
+                    <Link to="profile" className="flex items-center justify-center">
                         <img
                             src={"https://i.pinimg.com/236x/15/0f/a8/150fa8800b0a0d5633abc1d1c4db3d87.jpg?nii=t"}
                             alt={"Profile"}
@@ -52,13 +52,13 @@ const Navbar = () => {
                         />
                     </Link>
                     <Link
-                        to="placeholder"
+                        to="login"
                         className="px-4 py-2 text-sm rounded-xl border border-gray-700 hover:border-cyan-500 transition-colors"
                     >
                         Login
                     </Link>
                     <Link
-                        to="placeholder"
+                        to="register"
                         className="px-4 py-2 text-sm rounded-xl bg-cyan-500 text-gray-950 font-medium hover:bg-cyan-400 transition-colors"
                     >
                         Register
