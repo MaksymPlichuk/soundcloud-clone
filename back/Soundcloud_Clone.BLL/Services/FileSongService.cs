@@ -23,10 +23,7 @@ namespace Soundcloud_Clone.BLL.Services
                 using var openFileStream = File.OpenWrite(savePath);
                 await file.CopyToAsync(openFileStream);
 
-
-                string savePathWithSub = fullPath.ToLower() + "/" + fileName;
-
-                return ServiceResponse.Success("Image saved!", savePathWithSub);
+                return ServiceResponse.Success("Song saved!", fileName);
 
             }
             catch (Exception ex)
@@ -38,8 +35,8 @@ namespace Soundcloud_Clone.BLL.Services
         public ServiceResponse DeleteSong(string basePath, string fileName)
         {
 
-            string capitalizedForPath = char.ToUpper(fileName[0]) + fileName.Substring(1);
-            string fullFilePath = Path.Combine(basePath, capitalizedForPath);
+            //string capitalizedForPath = char.ToUpper(fileName[0]) + fileName.Substring(1);
+            string fullFilePath = Path.Combine(basePath, fileName);
 
             if (!File.Exists(fullFilePath)) { return ServiceResponse.Failure("File doesn't exist"); }
             try

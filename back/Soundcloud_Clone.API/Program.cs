@@ -87,7 +87,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AuthRepository>();
 builder.Services.AddScoped<TokenService>();
-
+builder.Services.AddScoped<FileSongService>();
 
 var app = builder.Build();
 

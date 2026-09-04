@@ -10,12 +10,14 @@ public class SongService : ISongService
     private readonly SongRepository _repository;
     private readonly MapperProfile _mapper;
     private readonly ImageService _imageService;
+    private readonly FileSongService _fileSongService;
 
-    public SongService(SongRepository repository, MapperProfile mapper, ImageService imageService)
+    public SongService(SongRepository repository, MapperProfile mapper, ImageService imageService, FileSongService fileSongService)
     {
         _repository = repository;
         _mapper = mapper;
         _imageService = imageService;
+        _fileSongService = fileSongService;
     }
 
     public async Task<ServiceResponse> GetAllAsync()
@@ -41,7 +43,7 @@ public class SongService : ISongService
         return ServiceResponse.Success($"Song with id: {id}", dto);
     }
 
-    public async Task<ServiceResponse> CreateAsync(CreateSongDto dto, string basePath, string subPath)
+    public async Task<ServiceResponse> CreateAsync(CreateSongDto dto, string basePath, string subPath, string fileSongPath)
     {
         SongEntity entity = _mapper.CreateSongToEntity(dto);
         if (dto.Image != null)
@@ -51,6 +53,9 @@ public class SongService : ISongService
 
             entity.Image = resp.Payload.ToString();
         }
+        var respSongFile = await _fileSongService.CreateSongAsync(dto.SongFile, fileSongPath);
+        if (!respSongFile.IsSuccess) return respSongFile;
+        entity.SongFile = respSongFile.Payload.ToString();
 
         try
         {
@@ -67,7 +72,7 @@ public class SongService : ISongService
         return ServiceResponse.Success($"Song {entity.Name} created!", _mapper.SongToDto(fullEntity));
     }
 
-    public async Task<ServiceResponse> UpdateAsync(UpdateSongDto dto, string basePath, string subPath)
+    public async Task<ServiceResponse> UpdateAsync(UpdateSongDto dto, string basePath, string subPath, string fileSongPath)
     {
         var entity = await GetByIdEntityAsync(dto.Id);
         if (entity == null)
@@ -89,6 +94,11 @@ public class SongService : ISongService
             newImageName = resp.Payload.ToString();
             entity.Image = resp.Payload.ToString();
         }
+        _fileSongService.DeleteSong(basePath, entity.SongFile);
+
+        var respSongFile = await _fileSongService.CreateSongAsync(dto.SongFile, fileSongPath);
+        if (!respSongFile.IsSuccess) return respSongFile;
+        entity.SongFile = respSongFile.Payload.ToString();
 
         bool upRes = await _repository.UpdateAsync(entity);
 
@@ -101,12 +111,13 @@ public class SongService : ISongService
         return ServiceResponse.Success($"Song {oldName} successfully updated!", _mapper.SongToDto(entity));
     }
 
-    public async Task<ServiceResponse> DeleteAsync(int id, string basePath)
+    public async Task<ServiceResponse> DeleteAsync(int id, string basePath, string fileSongPath)
     {
         var entity = await GetByIdEntityAsync(id);
         if (entity == null) return ServiceResponse.Failure($"Song with id {id} not found!");
 
         if (entity.Image != null) { _imageService.DeleteImage(basePath, entity.Image); }
+        _fileSongService.DeleteSong(basePath, entity.SongFile);
 
         bool res = await _repository.DeleteAsync(id);
         if (!res) return ServiceResponse.Failure("Deletion fail");

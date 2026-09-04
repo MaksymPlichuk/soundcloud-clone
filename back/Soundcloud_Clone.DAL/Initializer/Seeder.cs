@@ -33,6 +33,7 @@ public static class Seeder
             {
                 Name = "Never Gonna Give You Up",
                 Length = 213.5,
+                SongFile = "D:\\soundcloud-clone\\back\\Soundcloud_Clone.API\\Media\\Song\\Dr Dre, Snoop Dogg – Still DRE.mp3", //temp solution
                 Comments = new List<CommentEntity>
                 {
                     new CommentEntity

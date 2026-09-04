@@ -24,7 +24,7 @@ namespace Soundcloud_Clone.API.Controllers
             _subPath = StaticFilesSettings.SongCoverPath;
             _fileSongPath = StaticFilesSettings.SongStoragePath;
 
-            _fileSongPath = Path.Combine(_basePath, _fileSongPath);
+            _fileSongPath = Path.Combine(env.ContentRootPath, _fileSongPath);
         }
 
         [HttpGet]
@@ -44,21 +44,21 @@ namespace Soundcloud_Clone.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateSongDto song)
         {
-            var resp = await _service.CreateAsync(song, _basePath, _subPath);
+            var resp = await _service.CreateAsync(song, _basePath, _subPath, _fileSongPath);
             return this.GetAction(resp);
         }
 
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] UpdateSongDto song)
         {
-            var resp = await _service.UpdateAsync(song, _basePath, _subPath);
+            var resp = await _service.UpdateAsync(song, _basePath, _subPath, _fileSongPath);
             return this.GetAction(resp);
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var resp = await _service.DeleteAsync(id, _basePath);
+            var resp = await _service.DeleteAsync(id, _basePath, _fileSongPath);
             return this.GetAction(resp);
         }
     }
