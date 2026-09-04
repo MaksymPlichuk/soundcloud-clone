@@ -15,7 +15,7 @@ const AlbumCard = ({album, onClick }: AlbumCardProps) => {
             return;
         }
 
-        navigate(`/albums/${album.id}`);
+        navigate(`/album/${album.id}`);
     };
 
     const authorName = album.author?.userName ?? "Unknown artist";

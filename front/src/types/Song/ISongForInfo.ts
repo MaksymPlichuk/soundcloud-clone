@@ -1,4 +1,4 @@
-import type { IUserForInfo } from "../User/IUserForInfo";
+import type { UserForInfo } from "../User/UserForInfo";
 
 export interface ISongForInfo {
     id: number;
@@ -6,5 +6,5 @@ export interface ISongForInfo {
     length: number;
     songFile: string;
     image?: string | null;
-    artist: IUserForInfo;
+    artist: UserForInfo;
 }

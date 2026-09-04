@@ -35,7 +35,7 @@ const MainPage = () => {
 
     return (
         <>
-            <div className="flex justify-center mt-5 flex-col">
+            <div className="flex justify-center mt-5 flex-col bg-yellow-500">
 
             <div className="grid grid-cols-5 row-auto justify-center rounded-b-3xl h-full gap-5 mb-10">
 

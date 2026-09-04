@@ -7,7 +7,7 @@ const DefaultLayout = () => {
     return (
         <>
             <Navbar/>
-            <div className='main justify content-center align-items-center h-full mt-10 pb-24'>
+            <div className='main justify content-center align-items-center h-full pb-24'>
                 <Outlet></Outlet>
             </div>
             <Footer/>
