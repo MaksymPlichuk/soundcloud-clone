@@ -32,8 +32,8 @@ builder.Services.AddIdentity<UserEntity, AppRole>(opt =>
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-    string? connectionString = builder.Configuration.GetConnectionString("LocalDB");
-    opt.UseNpgsql(connectionString);
+    string connectionString = BuildConnectionString(builder.Configuration);
+    opt.UseNpgsql(connectionString, npgsql => npgsql.EnableRetryOnFailure());
 });
 
 
@@ -89,3 +89,24 @@ using (var scope = app.Services.CreateScope())
 
 await app.SeedAsync();
 app.Run();
+
+static string BuildConnectionString(IConfiguration configuration)
+{
+    string? host = Environment.GetEnvironmentVariable("POSTGRES_HOST");
+    if (!string.IsNullOrWhiteSpace(host))
+    {
+        string port = Environment.GetEnvironmentVariable("POSTGRES_PORT") ?? "5432";
+        string database = Environment.GetEnvironmentVariable("POSTGRES_DB") ?? "soundcloud_clone";
+        string username = Environment.GetEnvironmentVariable("POSTGRES_USER") ?? "postgres";
+        string password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD") ?? "postgres";
+        return $"Host={host};Port={port};Database={database};Username={username};Password={password};";
+    }
+    string? configured = configuration.GetConnectionString("LocalDB");
+    if (string.IsNullOrWhiteSpace(configured))
+    {
+        throw new InvalidOperationException(
+            "Connection string is not configured. Set ConnectionStrings:LocalDB in appsettings.json " +
+            "or provide POSTGRES_HOST/POSTGRES_DB/POSTGRES_USER/POSTGRES_PASSWORD environment variables.");
+    }
+    return configured;
+}
