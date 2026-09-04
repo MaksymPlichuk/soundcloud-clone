@@ -14,6 +14,7 @@ namespace Soundcloud_Clone.BLL.Dtos.Song
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public double Length { get; set; }
+        public string SongFile { get; set; }
 
         public string? Image { get; set; }
 

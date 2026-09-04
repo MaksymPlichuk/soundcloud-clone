@@ -1,24 +1,31 @@
 import {useNavigate} from "react-router-dom";
-import type {IAlbumItem} from "../../types/Album/IAlbumItem.ts";
 
-type AlbumCardProps = {
-    album : IAlbumItem,
+import type {ISongItem} from "../../types/Song/ISongItem.ts";
+import {usePlayerStore} from "../../store/store.ts";
+import APP_ENV from "../../env/index.ts";
+
+type SongCardProps = {
+    song : ISongItem,
     onClick?: () => void;
 };
 
-const AlbumCard = ({album, onClick }: AlbumCardProps) => {
+const SongCard = ({song, onClick }: SongCardProps) => {
     const navigate = useNavigate();
+    const {play} = usePlayerStore();
 
     const handleClick = () => {
+        play(song.songFile)
+        console.log("clicked");
         if (onClick) {
             onClick();
             return;
         }
 
-        navigate(`/album/${album.id}`);
+
+        //navigate(`/song/${song.id}`);
     };
 
-    const authorName = album.author?.userName ?? "Unknown artist";
+    const authorName = song.artist?.userName ?? "Unknown artist";
 
     return (
         <article
@@ -31,10 +38,10 @@ const AlbumCard = ({album, onClick }: AlbumCardProps) => {
                 hover:shadow-xl hover:shadow-cyan-500/10"
         >
             <div className="relative aspect-square overflow-hidden bg-gray-950">
-                {album.image ? (
+                {song.image ? (
                     <img
-                        src={album.image}
-                        alt={album.name}
+                        src={`${APP_ENV.IMG_URL}${song.image}`}
+                        alt={song.name}
                         className="
                             h-full w-full object-cover
                             transition-transform duration-500
@@ -79,23 +86,17 @@ const AlbumCard = ({album, onClick }: AlbumCardProps) => {
                     <h2 className="
                             min-w-0 flex-1 truncate text-lg font-bold text-gray-100
                             transition-colors group-hover:text-cyan-400"
-                        title={album.name}
+                        title={song.name}
                     >
-                        {album.name}
+                        {song.name}
                     </h2>
 
-                    <span className="shrink-0 text-xs text-gray-600">#{album.id}</span>
+                    <span className="shrink-0 text-xs text-gray-600">#{song.id}</span>
                 </div>
 
                 <p className="truncate text-sm font-medium text-cyan-400/80">
                     {authorName}
                 </p>
-
-                {album.description && (
-                    <p className="mt-3 line-clamp-2 text-sm leading-6 text-gray-500">
-                        {album.description}
-                    </p>
-                )}
 
                 <div
                     className="
@@ -115,5 +116,5 @@ const AlbumCard = ({album, onClick }: AlbumCardProps) => {
     );
 };
 
-export default AlbumCard;
+export default SongCard;
 

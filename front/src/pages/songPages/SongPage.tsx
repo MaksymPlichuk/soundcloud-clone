@@ -1,16 +1,16 @@
 import React, {useEffect} from "react";
 import { useParams } from "react-router-dom";
-import { useGetAlbumByIdQuery } from "../../api/albumApi";
+import {useGetSongByIdQuery} from "../../api/songsApi.ts";
 // import AlbumList from "./AlbumList";
 
-const AlbumsPage = () => {
+const SongPage = () => {
     const { id } = useParams();
 
     useEffect(() => {
         console.log(id)
     }, [])
 
-    const {data: album, isLoading,isError} = useGetAlbumByIdQuery(Number(id), { skip: !id });
+    const {data: album, isLoading,isError} = useGetSongByIdQuery(Number(id), { skip: !id });
 
     if (isLoading) {
         return (
@@ -84,4 +84,4 @@ const AlbumsPage = () => {
     );
 };
 
-export default AlbumsPage;
+export default SongPage;

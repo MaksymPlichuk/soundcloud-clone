@@ -8,8 +8,8 @@ namespace Soundcloud_Clone.BLL.Services
     {
         Task<ServiceResponse> GetAllAsync();
         Task<ServiceResponse> GetByIdAsync(int id);
-        Task<ServiceResponse> CreateAsync(CreateSongDto dto);
-        Task<ServiceResponse> UpdateAsync(UpdateSongDto dto);
-        Task<ServiceResponse> DeleteAsync(int id);
+        Task<ServiceResponse> CreateAsync(CreateSongDto dto, string basePath, string subPath, string fileSongPath);
+        Task<ServiceResponse> UpdateAsync(UpdateSongDto dto, string basePath, string subPath, string fileSongPath);
+        Task<ServiceResponse> DeleteAsync(int id, string basePath, string fileSongPath);
     }
 }

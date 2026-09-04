@@ -1,21 +1,18 @@
 import { useState } from "react";
-import { useLoginMutation } from "../../api/authApi.ts";
-import { useAppDispatch } from "../../store";
-import authSlice, {setCredentials} from "../../utils/authSlice.ts";
+import {useRegisterMutation} from "../../api/authApi.ts";
 
-const LoginPage = () => {
-    const [login] = useLoginMutation();
-    const dispatch = useAppDispatch();
 
-    const [form, setForm] = useState({ email: "", password: "" });
+const RegisterPage = () => {
+    const [register] = useRegisterMutation();
+
+    const [form, setForm] = useState({ email: "", password: "", userName: "" });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             console.log(form)
-            const response = await login(form).unwrap();
+            const response = await register(form).unwrap();
             console.log(response);
-            dispatch(setCredentials(response.payload.token));
         } catch (err) {
             console.error(err);
         }
@@ -23,6 +20,14 @@ const LoginPage = () => {
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
+            <input
+                type="username"
+                placeholder="Username"
+                value={form.userName}
+                onChange={e => setForm({ ...form, userName: e.target.value })}
+                className="border p-2 rounded"
+                required
+            />
             <input
                 type="email"
                 placeholder="Email"
@@ -39,11 +44,12 @@ const LoginPage = () => {
                 className="border p-2 rounded"
                 required
             />
+
             <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-                Увійти
+                Register
             </button>
         </form>
     );
 };
 
-export default LoginPage;
+export default RegisterPage;

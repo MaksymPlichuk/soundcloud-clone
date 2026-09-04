@@ -6,6 +6,7 @@ export interface ISongItem {
     id: number;
     name: string;
     length: number;
+    songFile: string;
     image: string | null;
     artist: UserForInfo;
     albums: IAlbumItem[];

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Soundcloud_Clone.API.Extensions;
 using Soundcloud_Clone.BLL.Dtos.Comment;
 using Soundcloud_Clone.BLL.Services;
 using System.Threading.Tasks;
@@ -19,39 +20,36 @@ namespace Soundcloud_Clone.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var items = await _service.GetAllAsync();
-            return Ok(items);
+            var resp = await _service.GetAllAsync();
+            return this.GetAction(resp);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("by-id/{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var item = await _service.GetByIdAsync(id);
-            if (item is null) return NotFound();
-            return Ok(item);
+            var resp = await _service.GetByIdAsync(id);
+            return this.GetAction(resp);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCommentDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateCommentDto comment)
         {
-            var created = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            var resp = await _service.CreateAsync(comment);
+            return this.GetAction(resp);
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateCommentDto dto)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateCommentDto comment)
         {
-            var updated = await _service.UpdateAsync(id, dto);
-            if (!updated) return NotFound();
-            return NoContent();
+            var resp = await _service.UpdateAsync(comment);
+            return this.GetAction(resp);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleted = await _service.DeleteAsync(id);
-            if (!deleted) return NotFound();
-            return NoContent();
+            var resp = await _service.DeleteAsync(id);
+            return this.GetAction(resp);
         }
     }
 }

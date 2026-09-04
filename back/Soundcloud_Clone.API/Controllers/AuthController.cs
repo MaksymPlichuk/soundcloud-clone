@@ -31,7 +31,7 @@ namespace Soundcloud_Clone.API.Controllers
 
             return this.GetAction(result);
         }
-        [HttpPost]
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             Response.Cookies.Delete("token");

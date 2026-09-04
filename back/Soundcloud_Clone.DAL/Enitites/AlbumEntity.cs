@@ -8,7 +8,7 @@ public class AlbumEntity : BaseEntity
 
     public string? Description { get; set; }
 
-    public Guid? Image { get; set; }
+    public string? Image { get; set; }
 
     public int AuthorId { get; set; }
 

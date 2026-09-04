@@ -7,12 +7,8 @@ namespace Soundcloud_Clone.API.Services;
 public interface IAlbumService
 {
     Task<ServiceResponse> GetAllAsync();
-
     Task<ServiceResponse> GetByIdAsync(int id);
-
-    Task<ServiceResponse> CreateAsync(CreateAlbumDto dto);
-
-    Task<ServiceResponse> UpdateAsync(UpdateAlbumDto dto);
-
-    Task<ServiceResponse> DeleteAsync(int id);
+    Task<ServiceResponse> CreateAsync(CreateAlbumDto dto, string basePath, string subPath);
+    Task<ServiceResponse> UpdateAsync(UpdateAlbumDto dto, string basePath, string subPath);
+    Task<ServiceResponse> DeleteAsync(int id, string basePath);
 }

@@ -16,10 +16,9 @@ namespace Soundcloud_Clone.BLL.Dtos.Album
 
         [Required]
         public int AuthorId { get; set; }
-        //public List<int> SongIds { get; set; } = []; переробити
-
-        public IFormFile? Image { get; set; }
 
         public List<int> SongIds { get; set; } = [];
+
+        public IFormFile? Image { get; set; }
     }
 }
