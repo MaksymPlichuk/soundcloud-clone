@@ -81,7 +81,7 @@ builder.Services.AddScoped<SongRepository>();
 
 builder.Services.AddSingleton<MapperProfile>();
 
-builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<ImageService>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<AuthService>();

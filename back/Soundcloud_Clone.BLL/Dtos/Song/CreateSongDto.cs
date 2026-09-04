@@ -1,4 +1,5 @@
-﻿using Soundcloud_Clone.BLL.Dtos.Album;
+﻿using Microsoft.AspNetCore.Http;
+using Soundcloud_Clone.BLL.Dtos.Album;
 using Soundcloud_Clone.BLL.Dtos.Auth;
 using Soundcloud_Clone.BLL.Dtos.Comment;
 using System;
@@ -13,9 +14,9 @@ namespace Soundcloud_Clone.BLL.Dtos.Song
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        public double Length { get; set; } //переобити під файл
+        public double Length { get; set; }
 
-        public string? Image { get; set; }
+        public IFormFile? Image { get; set; }
 
         public int ArtistId { get; set; }
 
