@@ -148,11 +148,11 @@ public class AlbumService : IAlbumService
              */
             if (dto.Image is not null)
             {
-                if (entity.Image.HasValue)
-                {
-                    await _imageService.DeleteAlbumImageAsync(
-                        entity.Image.Value);
-                }
+                //if (entity.Image.HasValue)
+                //{
+                //    await _imageService.DeleteAlbumImageAsync(
+                //        entity.Image.Value);
+                //}
 
                 entity.Image =
                     await _imageService.SaveAlbumImageAsync(dto.Image);

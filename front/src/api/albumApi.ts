@@ -4,6 +4,7 @@ import { createBaseQuery } from "../utils/CreateBaseQuery.ts";
 import type { Album } from "../types/Album/Album.ts";
 import type { CreateAlbumForm } from "../types/Album/Album.ts";
 import type { UpdateAlbumForm } from "../types/Album/Album.ts";
+import type {IAlbumItem} from "../types/Album/IAlbumItem.ts";
 
 type ServiceResponse<T> = {
     message: string;
@@ -19,28 +20,28 @@ export const albumApi = createApi({
     endpoints: (builder) => ({
 
         // GET /api/Albums
-        getAlbums: builder.query<Album[], void>({
+        getAlbums: builder.query<IAlbumItem[], void>({
             query: () => ({
                 url: "/",
                 method: "GET",
             }),
 
             transformResponse: (
-                response: ServiceResponse<Album[]>
+                response: ServiceResponse<IAlbumItem[]>
             ) => response.payload,
 
             providesTags: ["Album"],
         }),
 
         // GET /api/Albums/by-id/{id}
-        getAlbumById: builder.query<Album, number>({
+        getAlbumById: builder.query<IAlbumItem, number>({
             query: (id) => ({
                 url: `/by-id/${id}`,
                 method: "GET",
             }),
 
             transformResponse: (
-                response: ServiceResponse<Album>
+                response: ServiceResponse<IAlbumItem>
             ) => response.payload,
 
             providesTags: (_result, _error, id) => [

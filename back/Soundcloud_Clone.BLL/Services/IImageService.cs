@@ -4,6 +4,6 @@ namespace Soundcloud_Clone.API.Services;
 
 public interface IImageService
 {
-    Task<Guid> SaveAlbumImageAsync(IFormFile image);
-    Task DeleteAlbumImageAsync(Guid imageId);
+    Task<string> SaveAlbumImageAsync(IFormFile image);
+    Task DeleteAlbumImageAsync(string imageId);
 }

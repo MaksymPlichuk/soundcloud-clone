@@ -83,4 +83,14 @@ public class ImageService : IImageService
 	{
 		return $"{StaticFilesSettings.WebAlbumPath}/{imageId}{extension}";
 	}
+
+    Task<string> IImageService.SaveAlbumImageAsync(IFormFile image)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAlbumImageAsync(string imageId)
+    {
+        throw new NotImplementedException();
+    }
 }
