@@ -55,8 +55,8 @@ namespace Soundcloud_Clone.DAL.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<Guid?>("Image")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -332,6 +332,10 @@ namespace Soundcloud_Clone.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<string>("SongFile")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

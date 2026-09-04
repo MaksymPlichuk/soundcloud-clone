@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Soundcloud_Clone.API.Infrastracture;
 using Soundcloud_Clone.API.Repositories;
 using Soundcloud_Clone.API.Services;
@@ -9,6 +11,7 @@ using Soundcloud_Clone.DAL;
 using Soundcloud_Clone.DAL.Enitites.Identity;
 using Soundcloud_Clone.DAL.Initializer;
 using Soundcloud_Clone.DAL.Repositories;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +19,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+    };
+});
 
 
 builder.Services.AddIdentity<UserEntity, AppRole>(opt =>
@@ -58,8 +81,13 @@ builder.Services.AddScoped<SongRepository>();
 
 builder.Services.AddSingleton<MapperProfile>();
 
-builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<ImageService>();
 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<AuthRepository>();
+builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<FileSongService>();
 
 var app = builder.Build();
 
@@ -75,6 +103,7 @@ app.UseStaticMedia(builder.Environment);
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -13,7 +14,8 @@ namespace Soundcloud_Clone.BLL.Dtos.Song
 
         public double Length { get; set; } //переобити під файл
 
-        public string? Image { get; set; }
+        public IFormFile? Image { get; set; }
+        public IFormFile SongFile { get; set; } //обов'язково новий файл при оновленні
 
         public int ArtistId { get; set; }
 

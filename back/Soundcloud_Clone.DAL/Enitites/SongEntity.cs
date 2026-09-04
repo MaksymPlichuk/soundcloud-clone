@@ -9,6 +9,7 @@ public class SongEntity : BaseEntity
     
     public string? Image { get; set; }
 
+    public string SongFile { get; set; } = string.Empty;
     public int ArtistId { get; set; }
     public UserEntity Artist { get; set; }
 

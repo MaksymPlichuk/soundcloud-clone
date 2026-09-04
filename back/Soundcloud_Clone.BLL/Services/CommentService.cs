@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Soundcloud_Clone.BLL.Dtos.Comment;
 using Soundcloud_Clone.BLL.Mapperly;
 using Soundcloud_Clone.DAL.Enitites;
@@ -12,46 +13,86 @@ namespace Soundcloud_Clone.BLL.Services
     public class CommentService : ICommentService
     {
 
-        private readonly GenericRepository<CommentEntity> _commentRepository;
-        private readonly MapperProfile _mapper = new();
+        private readonly CommentRepository _repository;
+        private readonly MapperProfile _mapper;
 
-        public CommentService(GenericRepository<CommentEntity> commentRepository)
+        public CommentService(CommentRepository repository, MapperProfile mapper)
         {
-            _commentRepository = commentRepository;
+            _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<CommentDto> CreateAsync(CreateCommentDto dto)
+        public async Task<ServiceResponse> GetAllAsync()
         {
-            var entity = _mapper.CreateCommentToEntity(dto);
-            await _commentRepository.CreateAsync(entity);
-            return _mapper.CommentToDto(entity);
+            List<CommentEntity> entities = await _repository.GetAll().ToListAsync();
+            if (entities.Count == 0) { return ServiceResponse.Failure("No comments found"); }
+
+            var dtos = _mapper.ListCommentsToDto(entities);
+            return ServiceResponse.Success($"Found {entities.Count} comments", dtos);
         }
 
-        public Task<bool> DeleteAsync(int id)
+        private async Task<CommentEntity?> GetByIdEntityAsync(int id)
         {
-            return _commentRepository.DeleteAsync(id);
+            return await _repository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<CommentDto>> GetAllAsync()
+        public async Task<ServiceResponse> GetByIdAsync(int id)
         {
-            var entities = _commentRepository.GetAll().ToList();
-            return _mapper.ListCommentsToDto(entities);
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null) { return ServiceResponse.Failure($"Comment with id: {id} not found!"); }
+
+            CommentDto dto = _mapper.CommentToDto(entity);
+            return ServiceResponse.Success($"Comment with id: {id}", dto);
         }
 
-        public async Task<CommentDto?> GetByIdAsync(int id)
+        public async Task<ServiceResponse> CreateAsync(CreateCommentDto dto)
         {
-            var entity = await _commentRepository.GetByIdAsync(id);
-            if (entity is null) return null;
-            return _mapper.CommentToDto(entity);
+            CommentEntity entity = _mapper.CreateCommentToEntity(dto);
+
+            try
+            {
+                await _repository.CreateAsync(entity);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResponse.Failure(ex.Message);
+            }
+
+            var fullEntity = await _repository.GetByIdAsync(entity.Id);
+
+            return ServiceResponse.Success("Comment created!", _mapper.CommentToDto(fullEntity));
         }
 
-        public async Task<bool> UpdateAsync(int id, UpdateCommentDto dto)
+        public async Task<ServiceResponse> UpdateAsync(UpdateCommentDto dto)
         {
-            var existing = await _commentRepository.GetByIdAsync(id);
-            if (existing is null) return false;
-            _mapper.UpdateComment(dto, existing);
-            existing.Id = id;
-            return await _commentRepository.UpdateAsync(existing);
+            var entity = await GetByIdEntityAsync(dto.Id);
+            if (entity == null)
+            {
+                return ServiceResponse.Failure($"Comment with id {dto.Id} not found!");
+            }
+
+            _mapper.UpdateComment(dto, entity);
+
+            bool upRes = await _repository.UpdateAsync(entity);
+
+            if (!upRes)
+            {
+                return ServiceResponse.Failure("Update failure");
+            }
+
+            var fullEntity = await _repository.GetByIdAsync(entity.Id);
+            return ServiceResponse.Success("Comment successfully updated!", _mapper.CommentToDto(fullEntity));
+        }
+
+        public async Task<ServiceResponse> DeleteAsync(int id)
+        {
+            var entity = await GetByIdEntityAsync(id);
+            if (entity == null) return ServiceResponse.Failure($"Comment with id {id} not found!");
+
+            bool res = await _repository.DeleteAsync(id);
+            if (!res) return ServiceResponse.Failure("Deletion fail");
+
+            return ServiceResponse.Success("Comment deleted");
         }
     }
 }

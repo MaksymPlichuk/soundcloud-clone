@@ -19,6 +19,7 @@
 - RTK Query
 - Zod
 - react-hook-form
+- Zustand
 
 **архітектура**
 - Backend: класична 3-layer (Presentation > BLL > DAL)

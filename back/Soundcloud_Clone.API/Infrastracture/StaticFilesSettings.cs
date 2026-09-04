@@ -9,7 +9,7 @@
         public static string AlbumPath => "Albums"; //папка у Image
         public static string WebAlbumPath => "/images/albums";
 
-        public static string SongStoragePath => "Media/Song"; //окрема папка для Video
+        public static string SongStoragePath => "Media/Song"; //окрема папка для Song
         public static string WebSongPath => "/songs";
     }
 }
