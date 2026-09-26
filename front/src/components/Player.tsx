@@ -22,12 +22,12 @@ const PlayIcon = () => (
 );
 
 const PlayButton = () => {
-    const { isPlaying, togglePlay } = usePlayerStore();
+    const { currentTrack, isPlaying, togglePlay } = usePlayerStore();
 
     return (
         <button
             onClick={togglePlay}
-            // disabled={!currentTrack} // вимкнув для презентації
+            disabled={!currentTrack} // вимкнув для презентації
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-cyan-400 transition hover:scale-105 hover:bg-cyan-300"
         >
             {isPlaying ? <PauseIcon /> : <PlayIcon />}

@@ -16,29 +16,32 @@ const MainPage = () => {
         }
     }, [songs])
 
-    const testCreate = async () => {
-        const data: ICreateSongItem = {
-            name: "test",
-            length: 0,
-            image: "test",
-            artistId: 8,
-            albumIds: [],
-            commentIds: [],
-        }
-        try {
-            console.log(data)
-            let resp = await createSong(data).unwrap();
-            console.log(resp);
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
+    // const testCreate = async () => {
+    //     const data: ICreateSongItem = {
+    //         name: "test",
+    //         length: 0,
+    //         image: "test",
+    //         artistId: 8,
+    //         albumIds: [],
+    //         commentIds: [],
+    //     }
+    //     try {
+    //         console.log(data)
+    //         let resp = await createSong(data).unwrap();
+    //         console.log(resp);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //
+    // }
 
     return (
         <>
             <div className="flex justify-center flex-col ">
+                <div>
+                <h2 className={"bg-black text-cyan-700 font-bold text-center"}>Recent Songs</h2>
                     <SongList/>
+                </div>
             </div>
         </>
     );

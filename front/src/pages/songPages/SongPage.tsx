@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {useGetSongByIdQuery} from "../../api/songsApi.ts";
+import APP_ENV from "../../env";
 // import AlbumList from "./AlbumList";
 
 const SongPage = () => {
@@ -10,20 +11,20 @@ const SongPage = () => {
         console.log(id)
     }, [])
 
-    const {data: album, isLoading,isError} = useGetSongByIdQuery(Number(id), { skip: !id });
+    const {data: song, isLoading,isError} = useGetSongByIdQuery(Number(id), { skip: !id });
 
     if (isLoading) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-gray-950 text-cyan-400">
-                Loading albums...
+                Loading song...
             </div>
         );
     }
 
-    if (isError || !album) {
+    if (isError || !song) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-gray-950 text-red-400">
-                Failed to load album.
+                Failed to load song.
             </div>
         );
     }
@@ -36,13 +37,13 @@ const SongPage = () => {
                         Library
                     </span>
                     <h1 className="mt-2 text-4xl font-bold">
-                        Album Details
+                        Song Details
                     </h1>
                 </div>
 
                 <div className="max-w-sm rounded overflow-hidden shadow-lg m-5 bg-gray-900 border border-gray-800">
-                    {album.image ? (
-                        <img className="w-full h-64 object-cover" src={album.image} alt={album.name} />
+                    {song.image ? (
+                        <img className="w-full h-64 object-cover" src={`${APP_ENV.IMG_URL}${song.image}`} alt={song.name} />
                     ) : (
                         <div className="w-full h-64 flex items-center justify-center bg-gray-800 text-gray-500">
                             No image available
@@ -50,31 +51,49 @@ const SongPage = () => {
                     )}
 
                     <div className="px-6 py-4">
-                        <div className="text-xs text-gray-500 mb-1">ID: {album.id}</div>
-                        <div className="font-bold text-2xl text-cyan-400 mb-2">{album.name}</div>
-
-                        <p className="text-gray-300 text-base mb-4">
-                            {album.description || "No description provided."}
-                        </p>
+                        <div className="text-xs text-gray-500 mb-1">ID: {song.id}</div>
+                        <div className="font-bold text-2xl text-cyan-400 mb-2">{song.name}</div>
 
                         <div className="mt-4 border-t border-gray-700 pt-4">
                             <h3 className="text-lg font-semibold mb-2">Author Info</h3>
-                            <div className="text-gray-400">Author ID: {album.authorId}</div>
-                            <div className="text-gray-400">Author Name: {album.author.userName}</div>
+                            <div className="text-gray-400">Author ID: {song.artist.id}</div>
+                            <div className="text-gray-400">Author: <span className={"font-bold"}>{song.artist.userName}</span> </div>
                         </div>
 
                         <div className="mt-4 border-t border-gray-700 pt-4">
-                            <h3 className="text-lg font-semibold mb-2">Songs ({album.songs?.length || 0})</h3>
-                            {album.songs && album.songs.length > 0 ? (
+                            <h3 className="text-lg font-semibold mb-2">Albums ({song.albums?.length || 0})</h3>
+                            {song.albums && song.albums.length > 0 ? (
                                 <ul className="list-decimal list-inside text-gray-400">
-                                    {album.songs.map((song) => (
-                                        <li key={song.id} className="truncate">
-                                            {song.name} <span className="text-xs text-gray-500">({song.length}s)</span>
+                                    {song.albums.map((album) => (
+                                        <li key={album.id} className="truncate">
+                                            {album.name} {album.image ? (
+                                            <img className="object-cover" src={`${APP_ENV.IMG_URL}${album.image}`} alt={album.name} />
+                                        ) : (
+                                            <div className="flex items-center justify-center bg-gray-800 text-gray-500">
+                                                No image available
+                                            </div>
+                                        )}
+                                            <span className="text-xs text-gray-500">({album.author.userName})</span>
                                         </li>
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-gray-500 text-sm">No songs found in this album.</p>
+                                <p className="text-gray-500 text-sm">No albums found for this song.</p>
+                            )}
+                        </div>
+                        <div className="mt-4 border-t border-gray-700 pt-4">
+                            <h3 className="text-lg font-semibold mb-2">Comments ({song.comments?.length || 0})</h3>
+                            {song.comments && song.comments.length > 0 ? (
+                                <ul className="list-decimal list-inside text-gray-400">
+                                    {song.comments.map((comment) => (
+                                        <li key={id} className="truncate">
+                                            {comment.timeCode}<span className="text-xs text-gray-500">({comment.author.userName})</span>
+                                            <p className="text-gray-400">{comment.commentText}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-gray-500 text-sm">No comments found for this song.</p>
                             )}
                         </div>
                     </div>

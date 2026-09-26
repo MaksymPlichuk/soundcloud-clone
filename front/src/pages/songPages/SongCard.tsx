@@ -20,10 +20,15 @@ const SongCard = ({song, onClick }: SongCardProps) => {
             onClick();
             return;
         }
-
-
-        //navigate(`/song/${song.id}`);
+        navigate(`/song/${song.id}`);
     };
+    // const changeSongClick = () => {
+    //     play(song.songFile)
+    //     if (onClick) {
+    //         onClick();
+    //         return;
+    //     }
+    // }
 
     const authorName = song.artist?.userName ?? "Unknown artist";
 
@@ -75,6 +80,7 @@ const SongCard = ({song, onClick }: SongCardProps) => {
                             rounded-full bg-cyan-400 text-xl text-gray-950
                             opacity-0 shadow-lg transition-all duration-300
                             group-hover:scale-100 group-hover:opacity-100"
+                        // onClick={changeSongClick}
                     >
                         ▶
                     </div>
@@ -104,7 +110,7 @@ const SongCard = ({song, onClick }: SongCardProps) => {
                         border-t border-gray-800 pt-4"
                 >
                     <span className="text-xs font-medium uppercase tracking-wider text-gray-600">
-                        Album
+                        Song
                     </span>
 
                     <span className="text-sm text-gray-600 transition-colors group-hover:text-cyan-400">

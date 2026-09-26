@@ -55,7 +55,8 @@ builder.Services.AddIdentity<UserEntity, AppRole>(opt =>
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-    string? connectionString = builder.Configuration.GetConnectionString("LocalDB");
+    //string? connectionString = builder.Configuration.GetConnectionString("LocalDB");
+    string? connectionString = builder.Configuration.GetConnectionString("NeonDB");
     opt.UseNpgsql(connectionString);
 });
 
